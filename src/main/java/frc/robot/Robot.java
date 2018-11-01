@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.subsystems.Chassis;
 import frc.robot.util.BeakUtilities;
 import frc.robot.util.DataLogger;
 
@@ -23,10 +24,13 @@ public class Robot extends TimedRobot
 {
   // create instance of singelton Subsystems
   private static final String ROBOT_NAME = "2019-FallTrainingV3-CMD BASED";
+  private Chassis _chassis = Chassis.getInstance();
+  private OI _oi = OI.getInstance();
 
 	// class level working variables
 	private DataLogger _dataLogger = null;
-	private String _buildMsg = "?";
+  private String _buildMsg = "?";
+  
 
   // ==============================================================================================
   // Robot StartUp
