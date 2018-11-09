@@ -34,9 +34,12 @@ public class RobotMap
 	public static final int RIGHT_INFEED_DRIVE_CAN_ADDRESS = 10;
 	public static final int LEFT_INFEED_DRIVE_CAN_ADDRESS = 11;
 	public static final int CLIMBER_CAN_ADDRESS = 12;
+	public static final int MOTOR_CONTROLLED_BY_LIMIT_SWITCH = 14;
+	public static final int MOTOR_CONTROLLED_BY_ENCODER = 14;
 	
 	// DIO Ports
 	public static final int CARRIAGE_LIMIT_SWITCH_DIO_PORT = 0;
+	public static final int TEST_LIMIT_SWITCH_DIO_PORT = 5;
 	
 	// Analog Ports
 	public static final int STORED_PRESSURE_SENSOR_AIO_PORT = 0;	

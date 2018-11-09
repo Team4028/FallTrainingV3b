@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.EncoderMotorTest;
+import frc.robot.subsystems.LimitSwitchMotor;
 import frc.robot.util.BeakUtilities;
 import frc.robot.util.DataLogger;
 
@@ -25,7 +27,9 @@ public class Robot extends TimedRobot
   // create instance of singelton Subsystems
   private static final String ROBOT_NAME = "2019-FallTrainingV3-CMD BASED";
   private Chassis _chassis = Chassis.getInstance();
+  private LimitSwitchMotor _limitSwitchMotor = LimitSwitchMotor.getInstance();
   private OI _oi = OI.getInstance();
+  private EncoderMotorTest _encoderMotorTest = EncoderMotorTest.getInstance();
 
 	// class level working variables
 	private DataLogger _dataLogger = null;
@@ -96,6 +100,9 @@ public class Robot extends TimedRobot
   public void autonomousPeriodic() 
   {
     Scheduler.getInstance().run();
+    System.out.println(_limitSwitchMotor.getLimitSwitchValue());
+    _limitSwitchMotor.controlMotorWithLimitSwitch();
+    System.out.println("Is Patrick the greatest Dictator?");
   }
 
   // ==============================================================================================

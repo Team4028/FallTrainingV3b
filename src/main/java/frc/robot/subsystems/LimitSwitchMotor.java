@@ -10,8 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.interfaces.ISubsystem;
@@ -21,73 +20,47 @@ import frc.robot.RobotMap;
 /**
  * An example subsystem.  Use this as a template.
  */
-public class Chassis extends Subsystem implements ISubsystem 
+public class LimitSwitchMotor extends Subsystem implements ISubsystem 
 {
   // define class level working variables
-  private TalonSRX _leftMasterMotor;
-  private TalonSRX _rightMasterMotor;
-  private TalonSRX _rightSlaveMotor;
-  private TalonSRX _leftSlaveMotor;
-  private DoubleSolenoid _gearShifter;
-  private static final Value SHIFTER_LOW_GEAR_POS = DoubleSolenoid.Value.kReverse;
-  private static final Value SHIFTER_HIGH_GEAR_POS = DoubleSolenoid.Value.kForward;
+  private TalonSRX _motor;
+  public DigitalInput _limitSwitch;
 
 	//=====================================================================================
 	// Define Singleton Pattern
 	//=====================================================================================
-	private static Chassis _instance = new Chassis();
-	public static Chassis getInstance() {
+	private static LimitSwitchMotor _instance = new LimitSwitchMotor();
+	
+	public static LimitSwitchMotor getInstance() {
 		return _instance;
-	}
+    }
+    public boolean getLimitSwitchValue()
+    {
+       return _limitSwitch.get();
+    }
 	
 	// private constructor for singleton pattern
-  private Chassis()
+  private LimitSwitchMotor()
   {
-    _leftMasterMotor = new TalonSRX(RobotMap.LEFT_DRIVE_MASTER_CAN_ADDR);
-    _leftSlaveMotor = new TalonSRX(RobotMap.LEFT_DRIVE_SLAVE_CAN_ADDR);
-    _leftSlaveMotor.follow(_leftMasterMotor);
+    _motor = new TalonSRX(RobotMap.ELEVATOR_LIFT_MASTER_CAN_ADDRESS);
+    _limitSwitch = new DigitalInput(RobotMap.TEST_LIMIT_SWITCH_DIO_PORT);
 
-    _rightMasterMotor = new TalonSRX(RobotMap.RIGHT_DRIVE_MASTER_CAN_ADDR);
-    _rightSlaveMotor = new TalonSRX(RobotMap.RIGHT_DRIVE_SLAVE_CAN_ADDR);
-    _rightSlaveMotor.follow(_rightMasterMotor);
-
-    _gearShifter = new DoubleSolenoid(RobotMap.SHIFTER_EXTEND_PCM_PORT, RobotMap.SHIFTER_RETRACT_PCM_PORT);
   }
 
   //=====================================================================================
 	// Public Methods
     //=====================================================================================
-    
-    public void setMotorSpeed (double driveSpeed, double turnSpeed)
+    public void controlMotorWithLimitSwitch()
     {
-        double leftSpeed = (.7 * -driveSpeed) + (.5 * -turnSpeed);
-        double rightSpeed = (.7 * driveSpeed) + (.5 * -turnSpeed);
-        //set the speed for the right chassis motors
-        _rightMasterMotor.set(ControlMode.PercentOutput, rightSpeed);
-        
-
-
-        //set the speed for the left chassis motors
-        _leftMasterMotor.set(ControlMode.PercentOutput, leftSpeed);
-
-    }
-    public void toggleGearShift()
-    {
-        //toggle the gear shift
-        Value currentGear = _gearShifter.get();
-        if(currentGear == SHIFTER_HIGH_GEAR_POS)
+        if (getLimitSwitchValue() == false)
         {
-            _gearShifter.set(SHIFTER_LOW_GEAR_POS);
+            _motor.set(ControlMode.PercentOutput, 0.1);
+            
         }
-        else
+        else if (getLimitSwitchValue() == true)
         {
-            _gearShifter.set(SHIFTER_HIGH_GEAR_POS);
+            _motor.set(ControlMode.PercentOutput, -0.1);
         }
-
-    }
-    public synchronized boolean highGear()
-    {
-        return _gearShifter.get() == SHIFTER_HIGH_GEAR_POS;
     }
   @Override
   public void initDefaultCommand() 
