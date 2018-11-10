@@ -28,6 +28,7 @@ public class EncoderMotorTest extends Subsystem implements ISubsystem
 {
   // define class level working variables
   private TalonSRX _encoderMotor;
+  public boolean _isEncoderZeroed = false;
 
 	//=====================================================================================
 	// Define Singleton Pattern
@@ -43,30 +44,44 @@ public class EncoderMotorTest extends Subsystem implements ISubsystem
     _encoderMotor = new TalonSRX(RobotMap.MOTOR_CONTROLLED_BY_ENCODER);
     _encoderMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, 0);
     _encoderMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
- 
+    _encoderMotor.setSensorPhase(true);
   }
 
   //=====================================================================================
 	// Public Methods
     //=====================================================================================
-    public void runMotor()
-    {
-      _encoderMotor.set(ControlMode.PercentOutput, .1);
-      System.out.println(getEncoderPosition());
-    }
+
     public void zeroSensor()
     {
       if (_encoderMotor.getSensorCollection().isRevLimitSwitchClosed() == false)
       {
+        _isEncoderZeroed = true;
       _encoderMotor.setSelectedSensorPosition(0, 0, 0);
+      _encoderMotor.set(ControlMode.PercentOutput, 0);
       }
-      else ()
+      else
       {
-        
+        _encoderMotor.set(ControlMode.PercentOutput, -.1);
+      }
+      //System.out.println(getEncoderPosition());
+    }
+
+    public boolean isMotorZeroed(){
+     return _isEncoderZeroed;
+    }
+
+    public void sendMotorToEncoderPosition(){
+      if (isMotorZeroed() == true){
+        if (getEncoderPosition() < 5000){
+          _encoderMotor.set(ControlMode.PercentOutput, -.1);
+        }
+        else{
+          _encoderMotor.set(ControlMode.PercentOutput, 0);
+        }
       }
     }
 
-    private double getEncoderPosition() 
+    public int getEncoderPosition() 
     {
       return _encoderMotor.getSelectedSensorPosition(0);
     }

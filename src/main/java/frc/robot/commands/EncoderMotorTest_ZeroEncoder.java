@@ -14,13 +14,14 @@ import frc.robot.subsystems.EncoderMotorTest;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class EncoderMotorTest_DriveEncoderMotor extends Command 
+public class EncoderMotorTest_ZeroEncoder extends Command 
 {
 
     EncoderMotorTest _encoderMotorTest = EncoderMotorTest.getInstance();
 
-  public EncoderMotorTest_DriveEncoderMotor() 
+  public EncoderMotorTest_ZeroEncoder() 
   {
+    setInterruptible(false);
     requires(_encoderMotorTest);
     //requires(Robot.m_subsystem);
   }
@@ -34,13 +35,14 @@ public class EncoderMotorTest_DriveEncoderMotor extends Command
   @Override
   protected void execute() 
   {
-    _encoderMotorTest.runMotor();
+    System.out.println("am running ZeroEncoder command");
+    _encoderMotorTest.zeroSensor();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+   return _encoderMotorTest.isMotorZeroed();
   }
 
   // Called once after isFinished returns true

@@ -129,6 +129,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
+    System.out.println(_encoderMotorTest.getEncoderPosition());
   }
 
   // ==============================================================================================
