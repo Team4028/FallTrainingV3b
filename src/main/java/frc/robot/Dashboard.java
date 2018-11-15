@@ -1,10 +1,5 @@
 package frc.robot;
 
-// #region
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.Date;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.command.CommandGroup;

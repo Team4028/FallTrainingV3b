@@ -21,6 +21,9 @@ public class RobotMap
 	// PCM Can Bus Address
 	public static final int PCM_CAN_ADDR = 0;	
 	
+	//Encoders
+	public static final int ENCODER_ADDRESS = 0;
+
 	// Talons Can Bus Address
 	public static final int LEFT_DRIVE_MASTER_CAN_ADDR = 1;
 	public static final int LEFT_DRIVE_SLAVE_CAN_ADDR = 2;
@@ -34,9 +37,11 @@ public class RobotMap
 	public static final int RIGHT_INFEED_DRIVE_CAN_ADDRESS = 10;
 	public static final int LEFT_INFEED_DRIVE_CAN_ADDRESS = 11;
 	public static final int CLIMBER_CAN_ADDRESS = 12;
+	public static final int TEST_TALON = 14;
 	
 	// DIO Ports
 	public static final int CARRIAGE_LIMIT_SWITCH_DIO_PORT = 0;
+	public static final int TEST_SWITCH_DIO_PORT = 5;
 	
 	// Analog Ports
 	public static final int STORED_PRESSURE_SENSOR_AIO_PORT = 0;	
@@ -74,5 +79,8 @@ public class RobotMap
   // =============================
 	public static final String PRIMARY_LOG_FILE_PATH = "/media/sda1/logging";
 	public static final String ALTERNATE_LOG_FILE_PATH = "/media/sdb1/logging";
+
+	//Controllers
+	public static final int DRIVER_CONTROLLER_ID = 0;
 
 }
