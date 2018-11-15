@@ -37,7 +37,7 @@ public class RobotMap
 	public static final int RIGHT_INFEED_DRIVE_CAN_ADDRESS = 10;
 	public static final int LEFT_INFEED_DRIVE_CAN_ADDRESS = 11;
 	public static final int CLIMBER_CAN_ADDRESS = 12;
-	public static final int TEST_TALON = 14;
+	public static final int TEST_TALON = 5;
 	
 	// DIO Ports
 	public static final int CARRIAGE_LIMIT_SWITCH_DIO_PORT = 0;

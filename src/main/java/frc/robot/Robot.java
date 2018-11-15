@@ -8,7 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.LeftArm_ZeroMotor;
 import frc.robot.subsystems.Chassis;
 import frc.robot.util.BeakUtilities;
 import frc.robot.util.DataLogger;
@@ -30,6 +32,8 @@ public class Robot extends TimedRobot
 	// class level working variables
 	private DataLogger _dataLogger = null;
   private String _buildMsg = "?";
+
+  Command autonomousCommand;
   
 
   // ==============================================================================================
@@ -43,6 +47,9 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
+
+    autonomousCommand = new LeftArm_ZeroMotor();
+
     _buildMsg = BeakUtilities.WriteBuildInfoToDashboard(ROBOT_NAME);
   }
 
@@ -86,6 +93,8 @@ public class Robot extends TimedRobot
      */
 
     // schedule the autonomous command (example)
+
+    if (autonomousCommand != null) autonomousCommand.start();
 
   }
 

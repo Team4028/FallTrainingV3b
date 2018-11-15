@@ -19,21 +19,21 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class Encoder_Thing extends Subsystem {
+public class LeftArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private static Encoder_Thing _instance = new Encoder_Thing();
+  private static LeftArm _instance = new LeftArm();
 
-  public static Encoder_Thing getInstance() {
+  public static LeftArm getInstance() {
 
     return _instance;
   
   }
 
-  TalonSRX _encoderTalon;
+  public TalonSRX _encoderTalon;
 
-  private Encoder_Thing() {
+  private LeftArm() {
 
     _encoderTalon = new TalonSRX(RobotMap.TEST_TALON);
 
@@ -66,18 +66,24 @@ public class Encoder_Thing extends Subsystem {
 
   public void zeroSensor() {
 
-    if (_encoderTalon.getSensorCollection().isRevLimitSwitchClosed() == false) {
-     
-      _encoderTalon.setSelectedSensorPosition(0, RobotMap.ENCODER_ADDRESS, 0);
-     
-      _encoderTalon.set(ControlMode.PercentOutput, 0);
-    
+    _encoderTalon.set(ControlMode.PercentOutput, -.25);
+      
+  }
+
+  public boolean isTheLimitSwitchClosed() {
+  
+    if (_encoderTalon.getSensorCollection().isFwdLimitSwitchClosed() == true) {
+
+      return true;
+
     }
 
     else {
 
-      _encoderTalon.set(ControlMode.PercentOutput, -.25);
-      
+      return false;
+
     }
+
   }
+
 }

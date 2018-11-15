@@ -7,17 +7,22 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Encoder_Thing;
+import frc.robot.RobotMap;
+import frc.robot.subsystems.LeftArm;
 
-public class Encoder_RunMotor extends Command {
+public class LeftArm_ZeroMotor extends Command {
   
-  Encoder_Thing _encoderThing = Encoder_Thing.getInstance();
+  LeftArm _leftArm = LeftArm.getInstance();
   
-  public Encoder_RunMotor() {
+  public TalonSRX _encoderTalon;
+
+  public LeftArm_ZeroMotor() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(_encoderThing);
+    requires(_leftArm);
+    _encoderTalon = new TalonSRX(RobotMap.TEST_TALON);
   }
 
   // Called just before this Command runs the first time
@@ -29,14 +34,16 @@ public class Encoder_RunMotor extends Command {
   @Override
   protected void execute() {
   
-    _encoderThing.runMotor();
+    _leftArm.zeroSensor();
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+  
+   return _leftArm.isTheLimitSwitchClosed();
+
   }
 
   // Called once after isFinished returns true

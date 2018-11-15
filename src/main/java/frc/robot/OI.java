@@ -11,7 +11,7 @@ import frc.robot.commands.Chassis_DriveWithControllers;
 import frc.robot.commands.Chassis_ShiftGear;
 //import frc.robot.commands.LimitSwitch_RunMotor;
 import frc.robot.util.BeakXboxController;
-import frc.robot.commands.Encoder_RunMotor;
+import frc.robot.commands.LeftArm_ZeroMotor;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,6 +44,6 @@ public class OI
 		_operatorGamepad = new BeakXboxController(RobotMap.DRIVERS_STATION_OPERATOR_GAMEPAD_USB_PORT);
 		//_driverGamePad.a.whenPressed(new LimitSwitch_RunMotor());
 		//_driverGamePad.a.whenReleased(new LimitSwitch_StopMotor());
-		_driverGamePad.y.whenPressed(new Encoder_RunMotor());
+		_driverGamePad.y.whenPressed(new LeftArm_ZeroMotor());
   }
 }
