@@ -1,9 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
-import frc.robot.util.BeakXboxController.Thumbstick;
 
 /**
  * An example command.  You can replace me with your own command.

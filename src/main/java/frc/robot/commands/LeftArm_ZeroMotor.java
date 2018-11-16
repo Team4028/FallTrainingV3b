@@ -7,9 +7,7 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.RobotMap;
 import frc.robot.subsystems.LeftArm;
 
 public class LeftArm_ZeroMotor extends Command {
@@ -38,9 +36,14 @@ public class LeftArm_ZeroMotor extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-  
-   return _leftArm.isTheLimitSwitchClosed();
 
+    if (_leftArm.areTheFrickinArmsHomed = true) {
+      return true;
+    }
+
+    else {
+      return false;
+    }
   }
 
   // Called once after isFinished returns true

@@ -25,6 +25,8 @@ public class LeftArm extends Subsystem {
 
   private static LeftArm _instance = new LeftArm();
 
+  public boolean areTheFrickinArmsHomed;
+
   public static LeftArm getInstance() {
 
     return _instance;
@@ -57,35 +59,22 @@ public class LeftArm extends Subsystem {
 
   }
 
-  public void runMotor() {
-
-    _encoderTalon.set(ControlMode.PercentOutput, .25);
-
-    System.out.println(EncoderPosition());
-      
-   
-  }
-
   public void zeroSensor() {
 
-    _encoderTalon.set(ControlMode.PercentOutput, -.1);
-      
-  }
-
-  public boolean isTheLimitSwitchClosed() {
-  
     if (_encoderTalon.getSensorCollection().isFwdLimitSwitchClosed() == false) {
 
-      return true;
+      _encoderTalon.setSelectedSensorPosition(0, RobotMap.ENCODER_ADDRESS, 0);
+
+      _encoderTalon.set(ControlMode.PercentOutput, 0);
+
+      areTheFrickinArmsHomed = true;
 
     }
 
     else {
-
-      return false;
-
-    }
-
+    
+      _encoderTalon.set(ControlMode.PercentOutput, -.1);
+    
+    }  
   }
-
 }
