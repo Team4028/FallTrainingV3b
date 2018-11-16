@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.InfeedArms;
+import frc.robot.subsystems.LimitSwitchTestMotor;
 import frc.robot.util.BeakUtilities;
 import frc.robot.util.DataLogger;
 
@@ -20,11 +22,11 @@ import frc.robot.util.DataLogger;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot 
-{
+public class Robot extends TimedRobot {
   // create instance of singelton Subsystems
   private static final String ROBOT_NAME = "2019-FallTrainingV3-CMD BASED";
-  private Chassis _chassis = Chassis.getInstance();
+  private InfeedArms _infeedArms = InfeedArms.getInstance();
+  private LimitSwitchTestMotor _limitSwitch = LimitSwitchTestMotor.getInstance();
   private OI _oi = OI.getInstance();
 
 	// class level working variables
@@ -41,8 +43,7 @@ public class Robot extends TimedRobot
    * used for any initialization code.
    */
   @Override
-  public void robotInit() 
-  {
+  public void robotInit() {
     _buildMsg = BeakUtilities.WriteBuildInfoToDashboard(ROBOT_NAME);
   }
 
@@ -56,13 +57,11 @@ public class Robot extends TimedRobot
    * the robot is disabled.
    */
   @Override
-  public void disabledInit() 
-  {
+  public void disabledInit() {
   }
 
   @Override
-  public void disabledPeriodic() 
-  {
+  public void disabledPeriodic() {
     Scheduler.getInstance().run();
   }
 
@@ -74,8 +73,7 @@ public class Robot extends TimedRobot
    * This method run 1x when the robot is enabled in auton mode
    */
   @Override
-  public void autonomousInit() 
-  {
+  public void autonomousInit() {
    // m_autonomousCommand = m_chooser.getSelected();
 
     /*
@@ -93,11 +91,12 @@ public class Robot extends TimedRobot
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() 
-  {
+  public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-  }
+    _infeedArms.updateDashboard();
 
+    
+  }
   // ==============================================================================================
   // Telop Mode
   // ==============================================================================================
@@ -106,8 +105,7 @@ public class Robot extends TimedRobot
   * This method run 1x when the robot is enabled in telop mode
   */
   @Override
-  public void teleopInit() 
-  {
+  public void teleopInit() {
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -119,9 +117,9 @@ public class Robot extends TimedRobot
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() 
-  {
+  public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    _infeedArms.updateDashboard();
   }
 
   // ==============================================================================================
@@ -132,8 +130,7 @@ public class Robot extends TimedRobot
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic() 
-  {
+  public void testPeriodic() {
   }
 
   // ==============================================================================================
@@ -148,8 +145,7 @@ public class Robot extends TimedRobot
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() 
-  {
+  public void robotPeriodic() {
   }
 
 }
