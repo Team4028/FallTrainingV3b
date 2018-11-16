@@ -18,6 +18,7 @@ public class LeftArm_ZeroMotor extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(_leftArm);
+    setInterruptible(false);
   }
 
   // Called just before this Command runs the first time
