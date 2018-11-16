@@ -44,6 +44,5 @@ public class OI
 		_operatorGamepad = new BeakXboxController(RobotMap.DRIVERS_STATION_OPERATOR_GAMEPAD_USB_PORT);
 		//_driverGamePad.a.whenPressed(new LimitSwitch_RunMotor());
 		//_driverGamePad.a.whenReleased(new LimitSwitch_StopMotor());
-		_driverGamePad.y.whenPressed(new LeftArm_ZeroMotor());
   }
 }

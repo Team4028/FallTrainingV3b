@@ -41,6 +41,8 @@ public class LeftArm extends Subsystem {
 
     _encoderTalon.configReverseLimitSwitchSource(LimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyClosed, 0);
 
+    _encoderTalon.setInverted(true);
+
   }
 
   @Override
@@ -66,13 +68,13 @@ public class LeftArm extends Subsystem {
 
   public void zeroSensor() {
 
-    _encoderTalon.set(ControlMode.PercentOutput, -.25);
+    _encoderTalon.set(ControlMode.PercentOutput, -.1);
       
   }
 
   public boolean isTheLimitSwitchClosed() {
   
-    if (_encoderTalon.getSensorCollection().isFwdLimitSwitchClosed() == true) {
+    if (_encoderTalon.getSensorCollection().isFwdLimitSwitchClosed() == false) {
 
       return true;
 

@@ -15,14 +15,11 @@ import frc.robot.subsystems.LeftArm;
 public class LeftArm_ZeroMotor extends Command {
   
   LeftArm _leftArm = LeftArm.getInstance();
-  
-  public TalonSRX _encoderTalon;
 
   public LeftArm_ZeroMotor() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(_leftArm);
-    _encoderTalon = new TalonSRX(RobotMap.TEST_TALON);
   }
 
   // Called just before this Command runs the first time
