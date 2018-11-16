@@ -68,8 +68,8 @@ public class RobotMap
   // =============================
   // Onboard Vision Subsystem 
   // =============================
-  public static final String VISION_SOCKET_SERVER_IPV4_ADDR = "10.40.28.xxx";
-  public static final int VISION_SOCKET_SERVER_PORT = 1234;
+  public static final String VISION_SOCKET_SERVER_IPV4_ADDR = "10.40.28.6";
+  public static final int VISION_SOCKET_SERVER_PORT = 1337;
 
   // =============================
 	// Logging
