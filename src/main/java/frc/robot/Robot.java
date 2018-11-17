@@ -8,9 +8,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.Infeed_GoToEncoderPosition;
+import frc.robot.commands.Infeed_ZeroArmEncoders;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.EncoderMotorTest;
+import frc.robot.subsystems.Infeed;
 import frc.robot.subsystems.LimitSwitchMotor;
 import frc.robot.util.BeakUtilities;
 import frc.robot.util.DataLogger;
@@ -29,8 +32,8 @@ public class Robot extends TimedRobot
   private Chassis _chassis = Chassis.getInstance();
   private LimitSwitchMotor _limitSwitchMotor = LimitSwitchMotor.getInstance();
   private OI _oi = OI.getInstance();
-  private EncoderMotorTest _encoderMotorTest = EncoderMotorTest.getInstance();
-
+  private Infeed _infeed = Infeed.getInstance();
+  Command autonomousCommand;
 	// class level working variables
 	private DataLogger _dataLogger = null;
   private String _buildMsg = "?";
@@ -80,6 +83,8 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
+    Command zeroEncoder = new Infeed_ZeroArmEncoders();
+      zeroEncoder.start();
    // m_autonomousCommand = m_chooser.getSelected();
 
     /*
@@ -100,9 +105,6 @@ public class Robot extends TimedRobot
   public void autonomousPeriodic() 
   {
     Scheduler.getInstance().run();
-    System.out.println(_limitSwitchMotor.getLimitSwitchValue());
-    _limitSwitchMotor.controlMotorWithLimitSwitch();
-    System.out.println("Is Patrick the greatest Dictator?");
   }
 
   // ==============================================================================================
@@ -115,6 +117,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit() 
   {
+    Command zeroEncoder = new Infeed_ZeroArmEncoders();
+      zeroEncoder.start();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -129,7 +133,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
-    System.out.println(_encoderMotorTest.getEncoderPosition());
+    System.out.println(_infeed.getLeftArmEncoderPosition());
   }
 
   // ==============================================================================================
@@ -158,6 +162,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
+    _infeed.updateDashboard();
   }
 
 }

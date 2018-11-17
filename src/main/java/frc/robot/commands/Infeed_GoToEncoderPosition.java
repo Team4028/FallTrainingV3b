@@ -9,20 +9,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.EncoderMotorTest;
+import frc.robot.subsystems.Infeed;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class EncoderMotorTest_ZeroEncoder extends Command 
+public class Infeed_GoToEncoderPosition extends Command 
 {
 
-    EncoderMotorTest _encoderMotorTest = EncoderMotorTest.getInstance();
+    Infeed _infeed = Infeed.getInstance();
 
-  public EncoderMotorTest_ZeroEncoder() 
+  public Infeed_GoToEncoderPosition() 
   {
-    setInterruptible(false);
-    requires(_encoderMotorTest);
+    requires(_infeed);
     //requires(Robot.m_subsystem);
   }
 
@@ -35,14 +34,14 @@ public class EncoderMotorTest_ZeroEncoder extends Command
   @Override
   protected void execute() 
   {
-    System.out.println("am running ZeroEncoder command");
-    _encoderMotorTest.zeroSensor();
+    System.out.println("am running GoToEncoderPosition command");
+    _infeed.sendMotorToEncoderPosition(2000);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-   return _encoderMotorTest.isMotorZeroed();
+   return false;
   }
 
   // Called once after isFinished returns true
