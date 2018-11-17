@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -25,7 +26,7 @@ public class LeftArm extends Subsystem {
 
   private static LeftArm _instance = new LeftArm();
 
-  public boolean areTheFrickinArmsHomed;
+  public boolean areTheArmsHomed;
 
   public static LeftArm getInstance() {
 
@@ -37,13 +38,13 @@ public class LeftArm extends Subsystem {
 
   private LeftArm() {
 
-    _encoderTalon = new TalonSRX(RobotMap.TEST_TALON);
+    _encoderTalon = new TalonSRX(RobotMap.LEFT_ARM_TALON);
 
     _encoderTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotMap.ENCODER_ADDRESS, 0);
 
-    _encoderTalon.configReverseLimitSwitchSource(LimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyClosed, 0);
+    _encoderTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, 0);
 
-    _encoderTalon.setInverted(true);
+    _encoderTalon.setInverted(false);
 
   }
 
@@ -53,28 +54,51 @@ public class LeftArm extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  private double EncoderPosition() {
-
-    return _encoderTalon.getSelectedSensorPosition(RobotMap.ENCODER_ADDRESS);
-
-  }
-
   public void zeroSensor() {
 
-    if (_encoderTalon.getSensorCollection().isFwdLimitSwitchClosed() == false) {
+    if (_encoderTalon.getSensorCollection().isRevLimitSwitchClosed() == false) {
 
       _encoderTalon.setSelectedSensorPosition(0, RobotMap.ENCODER_ADDRESS, 0);
 
       _encoderTalon.set(ControlMode.PercentOutput, 0);
 
-      areTheFrickinArmsHomed = true;
+      areTheArmsHomed = true;
 
     }
 
     else {
     
-      _encoderTalon.set(ControlMode.PercentOutput, -.1);
+      _encoderTalon.set(ControlMode.PercentOutput, -.15);
+
+      areTheArmsHomed = false;
     
-    }  
+    }
+
+    /*if (_encoderTalon.getSensorCollection().isRevLimitSwitchClosed()) {
+
+      areTheFrickinArmsHomed = false;
+
+    }
+
+    else {
+
+      areTheFrickinArmsHomed = true;
+
+    }*/
+
   }
+
+  public double outputSensorData() {
+
+   return _encoderTalon.getSelectedSensorPosition(RobotMap.ENCODER_ADDRESS);
+
+  }
+
+  public void updateDashboard() {
+
+    SmartDashboard.putBoolean("Arms Are Homed", areTheArmsHomed);
+		SmartDashboard.putNumber("Sensor Position", outputSensorData());
+  
+  }
+
 }

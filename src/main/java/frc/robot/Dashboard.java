@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // #endregion
+import frc.robot.subsystems.LeftArm;
 
 /**
  *  This class contains code to interface with the Dashboard on the Driver's Station
@@ -16,6 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *		- provide real-time info to the drive team
  */
 public class Dashboard {
+	
+	LeftArm _leftArm;
+	
 	private enum AUTON_MODE {
 		UNDEFINED,
 		DO_NOTHING,
@@ -70,6 +74,8 @@ public class Dashboard {
 		_autonStartingSideChooser.addDefault("LEFT", STARTING_SIDE.LEFT);
 		_autonStartingSideChooser.addObject("RIGHT", STARTING_SIDE.RIGHT);
 		SmartDashboard.putData("AUTON STARTING SIDE: ", _autonStartingSideChooser);
+
+		_leftArm = LeftArm.getInstance();
 	}
 	
     public boolean isGameDataReceived() 
@@ -110,5 +116,6 @@ public class Dashboard {
 	{
 		SmartDashboard.putString("AUTON SELECTED", _autonModeChooser.getSelected().toString());
 		// 	    	SmartDashboard.putString("FMS Debug Msg", _fmsDebugMsg);
+		
 	}
 }

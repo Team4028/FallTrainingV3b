@@ -31,10 +31,7 @@ public class Robot extends TimedRobot
 
 	// class level working variables
 	private DataLogger _dataLogger = null;
-  private String _buildMsg = "?";
-
-  Command autonomousCommand;
-  
+  private String _buildMsg = "?";  
 
   // ==============================================================================================
   // Robot StartUp
@@ -45,10 +42,7 @@ public class Robot extends TimedRobot
    * used for any initialization code.
    */
   @Override
-  public void robotInit() 
-  {
-
-    autonomousCommand = new LeftArm_ZeroMotor();
+  public void robotInit() {
 
     _buildMsg = BeakUtilities.WriteBuildInfoToDashboard(ROBOT_NAME);
   }
@@ -94,8 +88,8 @@ public class Robot extends TimedRobot
 
     // schedule the autonomous command (example)
 
-    if (autonomousCommand != null) autonomousCommand.start();
-
+    Command autonomousCommand = new LeftArm_ZeroMotor();
+    autonomousCommand.start();
   }
 
   /**

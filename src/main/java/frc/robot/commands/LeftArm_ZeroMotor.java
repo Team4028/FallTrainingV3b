@@ -31,20 +31,16 @@ public class LeftArm_ZeroMotor extends Command {
   protected void execute() {
   
     _leftArm.zeroSensor();
-
+    _leftArm.updateDashboard();
+  
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
 
-    if (_leftArm.areTheFrickinArmsHomed = true) {
-      return true;
-    }
+    return _leftArm.areTheArmsHomed;
 
-    else {
-      return false;
-    }
   }
 
   // Called once after isFinished returns true
