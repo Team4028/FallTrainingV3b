@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.commands.LeftArm_ZeroMotor;
+import frc.robot.commands.Switchblades_Home;
 import frc.robot.subsystems.Chassis;
 import frc.robot.util.BeakUtilities;
 import frc.robot.util.DataLogger;
@@ -88,7 +88,7 @@ public class Robot extends TimedRobot
 
     // schedule the autonomous command (example)
 
-    Command autonomousCommand = new LeftArm_ZeroMotor();
+    Command autonomousCommand = new Switchblades_Home();
     autonomousCommand.start();
   }
 

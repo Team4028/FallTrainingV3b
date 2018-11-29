@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // #endregion
-import frc.robot.subsystems.LeftArm;
+import frc.robot.subsystems.Switchblades;
 
 /**
  *  This class contains code to interface with the Dashboard on the Driver's Station
@@ -18,7 +18,7 @@ import frc.robot.subsystems.LeftArm;
  */
 public class Dashboard {
 	
-	LeftArm _leftArm;
+	Switchblades _leftArm;
 	
 	private enum AUTON_MODE {
 		UNDEFINED,
@@ -75,7 +75,7 @@ public class Dashboard {
 		_autonStartingSideChooser.addObject("RIGHT", STARTING_SIDE.RIGHT);
 		SmartDashboard.putData("AUTON STARTING SIDE: ", _autonStartingSideChooser);
 
-		_leftArm = LeftArm.getInstance();
+		_leftArm = Switchblades.getInstance();
 	}
 	
     public boolean isGameDataReceived() 

@@ -8,16 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.LeftArm;
+import frc.robot.subsystems.Switchblades;
 
-public class LeftArm_ZeroMotor extends Command {
+public class Switchblades_Home extends Command {
   
-  LeftArm _leftArm = LeftArm.getInstance();
+  Switchblades _switchblades = Switchblades.getInstance();
 
-  public LeftArm_ZeroMotor() {
+  public Switchblades_Home() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(_leftArm);
+    requires(_switchblades);
     setInterruptible(false);
   }
 
@@ -30,8 +30,8 @@ public class LeftArm_ZeroMotor extends Command {
   @Override
   protected void execute() {
   
-    _leftArm.zeroSensor();
-    _leftArm.updateDashboard();
+    _switchblades.zeroSensors();
+    _switchblades.updateDashboard();
   
   }
 
@@ -39,7 +39,7 @@ public class LeftArm_ZeroMotor extends Command {
   @Override
   protected boolean isFinished() {
 
-    return _leftArm.areTheArmsHomed;
+    return _switchblades.areTheArmsHomed;
 
   }
 
