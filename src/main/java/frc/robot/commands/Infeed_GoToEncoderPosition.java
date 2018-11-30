@@ -35,13 +35,14 @@ public class Infeed_GoToEncoderPosition extends Command
   protected void execute() 
   {
     System.out.println("am running GoToEncoderPosition command");
-    _infeed.sendMotorToEncoderPosition(2000);
+    _infeed.sendLeftArmToEncoderPosition(500);
+    _infeed.sendRightArmToEncoderPosition(500);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-   return false;
+   return _infeed.getAreBothEncodersAtSetPosition();
   }
 
   // Called once after isFinished returns true

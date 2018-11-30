@@ -19,8 +19,9 @@ public class Infeed_ZeroArmEncoders extends Command
 
     Infeed _infeed = Infeed.getInstance();
 
-  public Infeed_ZeroArmEncoders() 
+  public Infeed_ZeroArmEncoders(boolean isOverrideEnabled) 
   {
+    _infeed.resetEncoderZeroedOnInit(isOverrideEnabled);
     setInterruptible(false);
     requires(_infeed);
     //requires(Robot.m_subsystem);
@@ -37,12 +38,13 @@ public class Infeed_ZeroArmEncoders extends Command
   {
     System.out.println("running ZeroArmEncoders command");
     _infeed.zeroLeftArmEncoder();
+    _infeed.zeroRightArmEncoder();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-   return _infeed.getLeftArmEncoderZeroed();
+   return _infeed.getBothArmEncodersZeroed();
   }
 
   // Called once after isFinished returns true
