@@ -9,7 +9,7 @@ package frc.robot;
 
 import frc.robot.commands.Chassis_DriveWithControllers;
 import frc.robot.commands.Chassis_ShiftGear;
-import frc.robot.commands.Infeed_GoToEncoderPosition;
+import frc.robot.commands.Infeed_ArmsGoToEncoderPosition;
 import frc.robot.commands.Infeed_ZeroArmEncoders;
 import frc.robot.commands.LimitSwitchMotorTest2_DriveMotorWithControllers;
 import frc.robot.commands.LimitSwitchMotorTest2_StopMotorWithControllers;
@@ -46,7 +46,9 @@ public class OI
 		_driverGamePad.a.whenPressed(new LimitSwitchMotorTest2_DriveMotorWithControllers());
 	//	_driverGamePad.a.whenReleased(new LimitSwitchMotorTest2_StopMotorWithControllers());*/
 	_driverGamePad.a.whenPressed(new Infeed_ZeroArmEncoders(true));
-	_driverGamePad.b.whenPressed(new Infeed_GoToEncoderPosition());
+	_driverGamePad.b.whenPressed(new Infeed_ArmsGoToEncoderPosition(45));
+	_driverGamePad.x.whenPressed(new Infeed_ArmsGoToEncoderPosition(90));
+	_driverGamePad.y.whenPressed(new Infeed_ArmsGoToEncoderPosition(180));
 
 		_operatorGamepad = new BeakXboxController(RobotMap.DRIVERS_STATION_OPERATOR_GAMEPAD_USB_PORT);
   }

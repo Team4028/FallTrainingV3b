@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Infeed;
 
+
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -18,18 +19,23 @@ public class Infeed_ZeroArmEncoders extends Command
 {
 
     Infeed _infeed = Infeed.getInstance();
-
+  private boolean _isOverrideEnabled;
   public Infeed_ZeroArmEncoders(boolean isOverrideEnabled) 
   {
-    _infeed.resetEncoderZeroedOnInit(isOverrideEnabled);
+    _isOverrideEnabled = isOverrideEnabled;
     setInterruptible(false);
     requires(_infeed);
+
+    }
     //requires(Robot.m_subsystem);
-  }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    if (_isOverrideEnabled){
+      _infeed.resetAreEncodersZeroed();
+      System.out.println("running if (isOverrideEnabled) statement in zero command");
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -37,8 +43,9 @@ public class Infeed_ZeroArmEncoders extends Command
   protected void execute() 
   {
     System.out.println("running ZeroArmEncoders command");
-    _infeed.zeroLeftArmEncoder();
-    _infeed.zeroRightArmEncoder();
+    _infeed.zeroArmEncoders();
+    //_infeed.zeroLeftArmEncoder();
+    //_infeed.zeroRightArmEncoder();
   }
 
   // Make this return true when this Command no longer needs to run execute()

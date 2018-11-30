@@ -11,38 +11,40 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Infeed;
 
+
 /**
  * An example command.  You can replace me with your own command.
  */
-public class Infeed_GoToEncoderPosition extends Command 
+public class Infeed_ArmsGoToEncoderPosition extends Command 
 {
-
+    double _degreesPos;
     Infeed _infeed = Infeed.getInstance();
-
-  public Infeed_GoToEncoderPosition() 
+  public Infeed_ArmsGoToEncoderPosition(double degreesPos) 
   {
+    setInterruptible(false);
     requires(_infeed);
+    _degreesPos = degreesPos;
+    }
     //requires(Robot.m_subsystem);
-  }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  }
+
+    }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    System.out.println("am running GoToEncoderPosition command");
-    _infeed.sendLeftArmToEncoderPosition(500);
-    _infeed.sendRightArmToEncoderPosition(500);
+    System.out.println("running ArmsGoToEncoder command");
+    _infeed.armsGoToEncoderPos(_degreesPos);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-   return _infeed.getAreBothEncodersAtSetPosition();
+    return _infeed.getAreArmsAtEncoderPosition(_degreesPos);
   }
 
   // Called once after isFinished returns true
