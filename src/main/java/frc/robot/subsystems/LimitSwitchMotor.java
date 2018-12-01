@@ -62,6 +62,7 @@ public class LimitSwitchMotor extends Subsystem implements ISubsystem
             _motor.set(ControlMode.PercentOutput, -0.1);
         }
     }
+
   @Override
   public void initDefaultCommand() 
   {

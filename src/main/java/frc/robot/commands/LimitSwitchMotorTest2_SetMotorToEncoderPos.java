@@ -9,21 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.LimitSwitchMotorTest2;
-import frc.robot.util.BeakXboxController.Thumbstick;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class LimitSwitchMotorTest2_DriveMotorWithControllers extends Command 
+public class LimitSwitchMotorTest2_SetMotorToEncoderPos extends Command 
 {
   LimitSwitchMotorTest2 _limitSwitchMotorTest2;
-  Thumbstick _leftStick;
+  double _degreesPos;
 
-  public LimitSwitchMotorTest2_DriveMotorWithControllers(Thumbstick leftStick) 
+  public LimitSwitchMotorTest2_SetMotorToEncoderPos(double degreesPos) 
   {
     _limitSwitchMotorTest2 = LimitSwitchMotorTest2.getInstance();
     requires(_limitSwitchMotorTest2);
-    _leftStick = leftStick;
+    _degreesPos = degreesPos;
 
     //requires(Robot.m_subsystem);
   }
@@ -37,14 +36,14 @@ public class LimitSwitchMotorTest2_DriveMotorWithControllers extends Command
   @Override
   protected void execute() 
   {
-    _limitSwitchMotorTest2.setMotorSpeed(_leftStick.getY());
-    
+    _limitSwitchMotorTest2.goToEncoderPosition(_degreesPos);
+    System.out.println(_limitSwitchMotorTest2.getEncoderPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return _limitSwitchMotorTest2.getIsMotorAtEncoderPosition(_degreesPos);
   }
 
   // Called once after isFinished returns true

@@ -38,7 +38,7 @@ public class RobotMap
 	
 	// DIO Ports
 	public static final int CARRIAGE_LIMIT_SWITCH_DIO_PORT = 0;
-	public static final int TEST_LIMIT_SWITCH_DIO_PORT = 5;
+	public static final int TEST_LIMIT_SWITCH_DIO_PORT = 7;
 	
 	// Analog Ports
 	public static final int STORED_PRESSURE_SENSOR_AIO_PORT = 0;	

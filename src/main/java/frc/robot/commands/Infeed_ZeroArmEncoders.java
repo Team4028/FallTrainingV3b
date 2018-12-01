@@ -44,8 +44,6 @@ public class Infeed_ZeroArmEncoders extends Command
   {
     System.out.println("running ZeroArmEncoders command");
     _infeed.zeroArmEncoders();
-    //_infeed.zeroLeftArmEncoder();
-    //_infeed.zeroRightArmEncoder();
   }
 
   // Make this return true when this Command no longer needs to run execute()

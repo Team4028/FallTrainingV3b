@@ -60,8 +60,7 @@ public class Infeed extends Subsystem implements ISubsystem {
   // private constructor for singleton pattern
   private Infeed() {
     _leftArmMotor = new TalonSRX(RobotMap.LEFT_SWITCHBLADE_MOTOR_CAN_ADDRESS);
-    _leftArmMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed,
-        0);
+    _leftArmMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, 0);
     _leftArmMotor.config_kD(0, INFEED_MOTION_MAGIC_D, 0);
     _leftArmMotor.config_kF(0, INFEED_MOTION_MAGIC_F, 0);
     _leftArmMotor.config_kI(0, INFEED_MOTION_MAGIC_I, 0);
@@ -116,23 +115,6 @@ public class Infeed extends Subsystem implements ISubsystem {
       _leftArmMotor.set(ControlMode.MotionMagic, nativeUnitsPos);
     }
 
-  /*
-   * public void zeroLeftArmEncoder() {
-   * System.out.println("running zeroLeftArmEncoder Method"); if
-   * (_leftArmMotor.getSensorCollection().isRevLimitSwitchClosed() == false){
-   * _isLeftArmEncoderZeroed = true; _leftArmMotor.setSelectedSensorPosition(0, 0,
-   * 0); _leftArmMotor.set(ControlMode.PercentOutput, 0); } else if
-   * (_isLeftArmEncoderZeroed == false){
-   * _leftArmMotor.set(ControlMode.PercentOutput, ARM_MOTORS_SPEED_FOR_ZEROING); }
-   * } public void zeroRightArmEncoder(){
-   * System.out.println("running zeroRightArmEncoder Method"); if
-   * (_rightArmMotor.getSensorCollection().isRevLimitSwitchClosed() == false){
-   * _isRightArmEncoderZeroed = true; _rightArmMotor.setSelectedSensorPosition(0,
-   * 0, 0); _rightArmMotor.set(ControlMode.PercentOutput, 0); } else if
-   * (_isRightArmEncoderZeroed == false){
-   * _rightArmMotor.set(ControlMode.PercentOutput, ARM_MOTORS_SPEED_FOR_ZEROING);
-   * } }
-   */
   public boolean getLeftArmEncoderZeroed() {
     return _isLeftArmEncoderZeroed;
   }

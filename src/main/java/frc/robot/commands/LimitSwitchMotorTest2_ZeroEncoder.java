@@ -9,21 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.LimitSwitchMotorTest2;
-import frc.robot.util.BeakXboxController.Thumbstick;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class LimitSwitchMotorTest2_DriveMotorWithControllers extends Command 
+public class LimitSwitchMotorTest2_ZeroEncoder extends Command 
 {
   LimitSwitchMotorTest2 _limitSwitchMotorTest2;
-  Thumbstick _leftStick;
+  private boolean _isOverrideEnabled;
 
-  public LimitSwitchMotorTest2_DriveMotorWithControllers(Thumbstick leftStick) 
+  public LimitSwitchMotorTest2_ZeroEncoder(boolean isOverrideEnabled) 
   {
     _limitSwitchMotorTest2 = LimitSwitchMotorTest2.getInstance();
     requires(_limitSwitchMotorTest2);
-    _leftStick = leftStick;
+    _isOverrideEnabled = isOverrideEnabled;
 
     //requires(Robot.m_subsystem);
   }
@@ -31,20 +30,22 @@ public class LimitSwitchMotorTest2_DriveMotorWithControllers extends Command
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      if(_isOverrideEnabled){
+          _limitSwitchMotorTest2.resetIsMotorEncoderZeroed();
+      }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    _limitSwitchMotorTest2.setMotorSpeed(_leftStick.getY());
-    
+    _limitSwitchMotorTest2.zeroMotorEncoder();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return _limitSwitchMotorTest2.getIsMotorHomed();
   }
 
   // Called once after isFinished returns true

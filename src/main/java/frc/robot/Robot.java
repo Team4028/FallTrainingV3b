@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.Infeed_ZeroArmEncoders;
+import frc.robot.commands.LimitSwitchMotorTest2_ZeroEncoder;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Infeed;
 import frc.robot.subsystems.LimitSwitchMotor;
@@ -82,8 +83,10 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    Command zeroEncoder = new Infeed_ZeroArmEncoders(false);
-      zeroEncoder.start();
+    /*Command zeroEncoder = new Infeed_ZeroArmEncoders(false);
+      zeroEncoder.start();*/
+    Command zeroMotorEncoder = new LimitSwitchMotorTest2_ZeroEncoder(false);
+      zeroMotorEncoder.start();
    // m_autonomousCommand = m_chooser.getSelected();
 
     /*
@@ -116,8 +119,10 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit() 
   {
-    Command zeroArmEncoders = new Infeed_ZeroArmEncoders(false);
-      zeroArmEncoders.start();
+    /*Command zeroArmEncoders = new Infeed_ZeroArmEncoders(false);
+      zeroArmEncoders.start();*/
+    Command zeroMotorEncoder = new LimitSwitchMotorTest2_ZeroEncoder(false);
+      zeroMotorEncoder.start();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -132,7 +137,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
-    System.out.println(_infeed.getLeftArmEncoderPosition());
+    //System.out.println(_infeed.getLeftArmEncoderPosition());
   }
 
   // ==============================================================================================

@@ -12,7 +12,9 @@ import frc.robot.commands.Chassis_ShiftGear;
 import frc.robot.commands.Infeed_ArmsGoToEncoderPosition;
 import frc.robot.commands.Infeed_ZeroArmEncoders;
 import frc.robot.commands.LimitSwitchMotorTest2_DriveMotorWithControllers;
+import frc.robot.commands.LimitSwitchMotorTest2_SetMotorToEncoderPos;
 import frc.robot.commands.LimitSwitchMotorTest2_StopMotorWithControllers;
+import frc.robot.commands.LimitSwitchMotorTest2_ZeroEncoder;
 import frc.robot.util.BeakXboxController;
 
 /**
@@ -44,11 +46,15 @@ public class OI
 		_driverGamePad.rightStick.whenReleased(new Chassis_DriveWithControllers(_driverGamePad.leftStick, _driverGamePad.rightStick));
 		_driverGamePad.b.whenPressed(new Chassis_ShiftGear());
 		_driverGamePad.a.whenPressed(new LimitSwitchMotorTest2_DriveMotorWithControllers());
-	//	_driverGamePad.a.whenReleased(new LimitSwitchMotorTest2_StopMotorWithControllers());*/
-	_driverGamePad.a.whenPressed(new Infeed_ZeroArmEncoders(true));
-	_driverGamePad.b.whenPressed(new Infeed_ArmsGoToEncoderPosition(45));
-	_driverGamePad.x.whenPressed(new Infeed_ArmsGoToEncoderPosition(90));
-	_driverGamePad.y.whenPressed(new Infeed_ArmsGoToEncoderPosition(180));
+		_driverGamePad.a.whenReleased(new LimitSwitchMotorTest2_StopMotorWithControllers());
+		_driverGamePad.a.whenPressed(new Infeed_ZeroArmEncoders(true));
+		_driverGamePad.b.whenPressed(new Infeed_ArmsGoToEncoderPosition(45));
+		_driverGamePad.x.whenPressed(new Infeed_ArmsGoToEncoderPosition(90));
+		_driverGamePad.y.whenPressed(new Infeed_ArmsGoToEncoderPosition(180));*/
+		_driverGamePad.a.whenPressed(new LimitSwitchMotorTest2_SetMotorToEncoderPos(90));
+		_driverGamePad.b.whenPressed(new LimitSwitchMotorTest2_ZeroEncoder(true));
+		_driverGamePad.leftStick.whileActive(new LimitSwitchMotorTest2_DriveMotorWithControllers(_driverGamePad.leftStick));
+		_driverGamePad.leftStick.whenReleased(new LimitSwitchMotorTest2_DriveMotorWithControllers(_driverGamePad.leftStick));
 
 		_operatorGamepad = new BeakXboxController(RobotMap.DRIVERS_STATION_OPERATOR_GAMEPAD_USB_PORT);
   }
