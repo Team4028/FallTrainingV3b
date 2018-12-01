@@ -26,13 +26,13 @@ public class Switchblades extends Subsystem {
 
   private static Switchblades _instance = new Switchblades();
 
-  private boolean isTheLeftHomed;
-  private boolean isTheRightHomed;
+  public boolean isTheLeftHomed;
+  public boolean isTheRightHomed;
+  private double leftArmUnitsConverted;
+  private double rightArmUnitsConverted;
 
   public static Switchblades getInstance() {
-
     return _instance;
-  
   }
 
   public TalonSRX _leftSwitchblade;
@@ -44,11 +44,23 @@ public class Switchblades extends Subsystem {
     _leftSwitchblade.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotMap.ENCODER_LEFT_ADDRESS, 0);
     _leftSwitchblade.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, 0);
     _leftSwitchblade.setInverted(false);
+    _leftSwitchblade.config_kF(0, 0.3354098361, 0);
+    _leftSwitchblade.config_kP(0, 1.5, 0);
+    _leftSwitchblade.config_kI(0, 0, 0);
+    _leftSwitchblade.config_kD(0, 0, 0);
+    _leftSwitchblade.configMotionAcceleration(2000, 0);
+    _leftSwitchblade.configMotionCruiseVelocity(3000, 0);
 
     _rightSwitchblade = new TalonSRX(RobotMap.RIGHT_SWITCHBLADE_TALON);
     _rightSwitchblade.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotMap.ENCODER_RIGHT_ADDRESS, 0);
     _rightSwitchblade.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, 0);
     _rightSwitchblade.setInverted(true);
+    _rightSwitchblade.config_kF(0, 0.3354098361, 0);
+    _rightSwitchblade.config_kP(0, 1.5, 0);
+    _rightSwitchblade.config_kI(0, 0, 0);
+    _rightSwitchblade.config_kD(0, 0, 0);
+    _rightSwitchblade.configMotionAcceleration(2000, 0);
+    _rightSwitchblade.configMotionCruiseVelocity(3000, 0);
 
   }
 
@@ -67,10 +79,11 @@ public class Switchblades extends Subsystem {
     }
 
     else {
-      _leftSwitchblade.set(ControlMode.PercentOutput, -.15);
-      isTheLeftHomed = false;
+      if (isTheLeftHomed == false) {
+        _leftSwitchblade.set(ControlMode.PercentOutput, -.1);
+      }
     }
-
+    
     if (_rightSwitchblade.getSensorCollection().isRevLimitSwitchClosed() == false) {
       _rightSwitchblade.setSelectedSensorPosition(0, RobotMap.ENCODER_RIGHT_ADDRESS, 0);
       _rightSwitchblade.set(ControlMode.PercentOutput, 0);
@@ -78,20 +91,28 @@ public class Switchblades extends Subsystem {
     }
 
     else {
-      _rightSwitchblade.set(ControlMode.PercentOutput, -.15);
-      isTheRightHomed = false;
+      if (isTheRightHomed == false) {
+        _rightSwitchblade.set(ControlMode.PercentOutput, -.1);
+      }
     }
   }
-
+  
   private double outputLeftSensorData() {
-   return _leftSwitchblade.getSelectedSensorPosition(RobotMap.ENCODER_LEFT_ADDRESS);
+   return ((_leftSwitchblade.getSelectedSensorPosition(0)/4096.0)*360);
   }
 
   private double outputRightSensorDate() {
-    return _rightSwitchblade.getSelectedSensorPosition(RobotMap.ENCODER_RIGHT_ADDRESS);
+    return ((_rightSwitchblade.getSelectedSensorPosition(0)/4096.0)*360);
   }
 
-  public boolean areTheArmsHomed() {
+  public void updateDashboard() {
+    SmartDashboard.putBoolean("IsTheLeftHomed", isTheLeftHomed);
+    SmartDashboard.putBoolean("IsTheRightHomed", isTheRightHomed);
+    SmartDashboard.putNumber("Left Sensor Position", outputLeftSensorData());
+    SmartDashboard.putNumber("RIght Sensor Position", outputRightSensorDate());
+  }
+
+  public boolean armsHaveHomedAlready() {
 
     if (isTheLeftHomed && isTheRightHomed) {
       return true;
@@ -102,10 +123,23 @@ public class Switchblades extends Subsystem {
     }
   }
 
-  public void updateDashboard() {
-    SmartDashboard.putBoolean("Arms Are Homed", areTheArmsHomed());
-    SmartDashboard.putNumber("Left Sensor Position", outputLeftSensorData());
-    SmartDashboard.putNumber("RIght Sensor Position", outputRightSensorDate());
+  public void moveArms90Degrees() {
+    _leftSwitchblade.set(ControlMode.MotionMagic, 1024);
+    _rightSwitchblade.set(ControlMode.MotionMagic, 1024);
   }
 
+  public void moveArms45Degrees() {
+    _leftSwitchblade.set(ControlMode.MotionMagic, 512);
+    _rightSwitchblade.set(ControlMode.MotionMagic, 512);
+  }
+
+  public void moveArms180Degrees() {
+    _leftSwitchblade.set(ControlMode.MotionMagic, 2048);
+    _rightSwitchblade.set(ControlMode.MotionMagic, 2048);
+  }
+
+  public void resetHomed() {
+    isTheLeftHomed = false;
+    isTheRightHomed = false;
+  }
 }

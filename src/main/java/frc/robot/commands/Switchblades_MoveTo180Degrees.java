@@ -9,42 +9,33 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.Switchblades;
-public class Switchblades_Home extends Command {
+
+public class Switchblades_MoveTo180Degrees extends Command {
   
   private Switchblades _switchblades = Switchblades.getInstance();
 
-  public Switchblades_Home() {
+  public Switchblades_MoveTo180Degrees() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(_switchblades);
-    setInterruptible(false);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    _switchblades.resetHomed();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-  
-    _switchblades.zeroSensors();
+    _switchblades.moveArms180Degrees();
     _switchblades.updateDashboard();
-  
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (_switchblades.armsHaveHomedAlready()) {
-      return true;
-    }
-
-    else {
-      return false;
-    }
+    return false;
   }
 
   // Called once after isFinished returns true

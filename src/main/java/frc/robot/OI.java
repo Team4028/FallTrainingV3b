@@ -8,8 +8,10 @@
 package frc.robot;
 
 import frc.robot.commands.Chassis_DriveWithControllers;
-import frc.robot.commands.Chassis_ShiftGear;
-//import frc.robot.commands.LimitSwitch_RunMotor;
+import frc.robot.commands.Switchblades_Home;
+import frc.robot.commands.Switchblades_MoveTo180Degrees;
+import frc.robot.commands.Switchblades_MoveTo45Degrees;
+import frc.robot.commands.Switchblades_MoveTo90Degrees;
 import frc.robot.util.BeakXboxController;
 
 /**
@@ -39,9 +41,11 @@ public class OI
 		_driverGamePad.leftStick.whenReleased(new Chassis_DriveWithControllers(_driverGamePad.leftStick, _driverGamePad.rightStick));
 		_driverGamePad.rightStick.whileActive(new Chassis_DriveWithControllers(_driverGamePad.leftStick, _driverGamePad.rightStick));
 		_driverGamePad.rightStick.whenReleased(new Chassis_DriveWithControllers(_driverGamePad.leftStick, _driverGamePad.rightStick));
-		_driverGamePad.b.whenPressed(new Chassis_ShiftGear());
-		_operatorGamepad = new BeakXboxController(RobotMap.DRIVERS_STATION_OPERATOR_GAMEPAD_USB_PORT);
-		//_driverGamePad.a.whenPressed(new LimitSwitch_RunMotor());
-		//_driverGamePad.a.whenReleased(new LimitSwitch_StopMotor());
-  }
+		_driverGamePad.b.whenPressed(new Switchblades_Home());
+		
+		_driverGamePad.a.whenPressed(new Switchblades_MoveTo90Degrees());
+		_driverGamePad.x.whenPressed(new Switchblades_MoveTo45Degrees());
+		_driverGamePad.y.whenPressed(new Switchblades_MoveTo180Degrees());
+		  _operatorGamepad = new BeakXboxController(RobotMap.DRIVERS_STATION_OPERATOR_GAMEPAD_USB_PORT);
+	}
 }
