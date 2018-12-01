@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.Carriage_Home;
+import frc.robot.subsystems.Carriage;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.InfeedArms;
 import frc.robot.subsystems.LimitSwitchTestMotor;
@@ -26,6 +28,7 @@ public class Robot extends TimedRobot {
   // create instance of singelton Subsystems
   private static final String ROBOT_NAME = "2019-FallTrainingV3-CMD BASED";
   private InfeedArms _infeedArms = InfeedArms.getInstance();
+  private Carriage _carriage = Carriage.getInstance();
   private LimitSwitchTestMotor _limitSwitch = LimitSwitchTestMotor.getInstance();
   private OI _oi = OI.getInstance();
 
@@ -85,6 +88,8 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
 
+    Carriage_Home home = new Carriage_Home();
+    home.start();
   }
 
   /**
@@ -94,7 +99,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
     _infeedArms.updateDashboard();
-
+    _carriage.updateDashboard();
     
   }
   // ==============================================================================================
@@ -110,7 +115,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-
+    Carriage_Home home = new Carriage_Home();
+    home.start();
   }
 
   /**
@@ -120,6 +126,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     _infeedArms.updateDashboard();
+    _carriage.updateDashboard();
   }
 
   // ==============================================================================================
