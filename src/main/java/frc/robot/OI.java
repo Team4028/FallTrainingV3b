@@ -9,6 +9,8 @@ package frc.robot;
 
 import frc.robot.commands.Chassis_DriveWithControllers;
 import frc.robot.commands.Chassis_ShiftGear;
+import frc.robot.commands.InfeedArms_Home;
+import frc.robot.commands.InfeedArms_MoveArms;
 import frc.robot.util.BeakXboxController;
 
 /**
@@ -20,6 +22,7 @@ public class OI
   // working object
   BeakXboxController _driverGamePad;
 	BeakXboxController _operatorGamepad;
+	
 	
 
 	//=====================================================================================
@@ -38,7 +41,10 @@ public class OI
 		_driverGamePad.leftStick.whenReleased(new Chassis_DriveWithControllers(_driverGamePad.leftStick, _driverGamePad.rightStick));
 		_driverGamePad.rightStick.whileActive(new Chassis_DriveWithControllers(_driverGamePad.leftStick, _driverGamePad.rightStick));
 		_driverGamePad.rightStick.whenReleased(new Chassis_DriveWithControllers(_driverGamePad.leftStick, _driverGamePad.rightStick));
-		_driverGamePad.b.whenPressed(new Chassis_ShiftGear());
+		_driverGamePad.y.whenPressed(new InfeedArms_MoveArms(180));
+		_driverGamePad.b .whenPressed(new InfeedArms_MoveArms(90));
+		_driverGamePad.a .whenPressed(new InfeedArms_MoveArms(45));
+		_driverGamePad.x.whenPressed(new InfeedArms_Home(true));
     _operatorGamepad = new BeakXboxController(RobotMap.DRIVERS_STATION_OPERATOR_GAMEPAD_USB_PORT);
   }
 }
