@@ -34,9 +34,13 @@ public class RobotMap
 	public static final int RIGHT_INFEED_DRIVE_CAN_ADDRESS = 10;
 	public static final int LEFT_INFEED_DRIVE_CAN_ADDRESS = 11;
 	public static final int CLIMBER_CAN_ADDRESS = 12;
+	public static final int TEST_MOTOR = 14;
+	public static final int INFEED_ARMS = 6;
 	
 	// DIO Ports
 	public static final int CARRIAGE_LIMIT_SWITCH_DIO_PORT = 0;
+	public static final int TEST_LIMIT_SWITCH_DIO_PORT = 5;
+	public static final int LIMIT_SWITCH_NUMERO_DOS = 7;
 	
 	// Analog Ports
 	public static final int STORED_PRESSURE_SENSOR_AIO_PORT = 0;	
@@ -64,8 +68,8 @@ public class RobotMap
   // =============================
   // Onboard Vision Subsystem 
   // =============================
-  public static final String VISION_SOCKET_SERVER_IPV4_ADDR = "10.40.28.xxx";
-  public static final int VISION_SOCKET_SERVER_PORT = 1234;
+  public static final String VISION_SOCKET_SERVER_IPV4_ADDR = "10.40.28.6";
+  public static final int VISION_SOCKET_SERVER_PORT = 1337;
 
   // =============================
 	// Logging
